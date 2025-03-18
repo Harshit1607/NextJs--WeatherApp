@@ -107,21 +107,19 @@ const Weather: React.FC = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex bg-cover bg-center max-h-screen max-w-screen overflow-hidden"
+    <div className="w-screen h-screen flex bg-cover bg-center max-h-screen max-w-screen overflow-hidden max-md:flex-col max-md:h-200vh max-md:max-h-200vh"
     style={getBackgroundStyle()}>
-      <div className="h-full w-[65%] flex justify-start items-end">
-      <div className="flex flex-row w-[50%] h-[15%] justify-end">
+      <div className="h-full w-[65%] flex justify-start items-end max-md:w-[100%] max-md:opacity-[50%] max-md:justify-center max-md:items-center">
+      <div className="flex flex-row w-[50%] h-[15%] justify-end max-md:h-[50%] max-md:justify-center">
         <div className="w-[45%] h-full text-8xl flex justify-end items-center">{weatherData?.temperature}°C</div>
         <div className="w-[45%] h-full flex flex-col justify-center items-start text-lg ml-10px">
           <span className=" h-[25%]">{weatherData?.city}</span>
           <span className=" h-[25%]">{weatherData?.day_of_week}</span>
           <div className="flex justify-center items-center h-[25%]"><span>{weatherData?.weather}</span><img className="h-full"src={weatherData?.icon}/></div>
-          
-          <span></span>
         </div>
       </div>
       </div>
-      <div className="h-full w-[35%] bg-black opacity-[50%] text-white flex flex-col justify-center items-center gap-2 p-4">
+      <div className="h-full w-[35%] bg-black opacity-[50%] text-white flex flex-col justify-center items-center gap-2 p-4 max-md:w-[100%]">
         <div className="flex h-[15%] w-[80%]">
           <form onSubmit={handleSubmit} className="flex w-full gap-2 relative justify-center w-[80%]">
             <input 
