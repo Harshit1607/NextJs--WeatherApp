@@ -68,7 +68,7 @@ const Weather: React.FC = () => {
   // Fetch user's location when the page loads
   useEffect(() => {
     getUserLocation();
-  });
+  }, [getUserLocation]);
 
   // Fetch weather data
   const fetchWeather = async (cityName: string) => {
