@@ -14,10 +14,25 @@ import snow from '../../assets/snow.webp';
 import rain from '../../assets/rain.webp';
 import other from '../../assets/other.webp'
 
+interface WeatherData {
+  city: string;
+  country: string;
+  temperature: number;
+  humidity: number;
+  wind_speed: number;
+  wind_dir: number;
+  pressure_mb: number;
+  visibility_km: number;
+  feels_like: number;
+  weather: string;
+  icon: string;
+  day_of_week: string;
+}
+
 const Weather: React.FC = () => {
   const [city, setCity] = useState("");
-  const [weatherData, setWeatherData] = useState<any>(null);
-  const [error, setError] = useState("");
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [error, setError] = useState<string>("");
 
   // Handles input changes
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -37,11 +52,11 @@ const Weather: React.FC = () => {
               setCity(data.state);
               fetchWeather(data.state); // Fetch weather for detected city
             }
-          } catch (err) {
+          } catch {
             setError("Failed to get location.");
           }
         },
-        (error) => {
+        () => {
           setError("Location access denied.");
         }
       );
@@ -53,7 +68,7 @@ const Weather: React.FC = () => {
   // Fetch user's location when the page loads
   useEffect(() => {
     getUserLocation();
-  }, []);
+  });
 
   // Fetch weather data
   const fetchWeather = async (cityName: string) => {
@@ -68,7 +83,7 @@ const Weather: React.FC = () => {
       } else {
         setError(data.error || "Failed to fetch weather data.");
       }
-    } catch (err) {
+    } catch {
       setError("Failed to fetch weather data.");
     }
   };
@@ -106,6 +121,10 @@ const Weather: React.FC = () => {
     };
   };
 
+  if(error){
+    alert(error);
+  }
+
   return (
     <div
       className="w-screen h-screen flex bg-cover bg-center max-h-screen max-w-screen overflow-hidden
@@ -126,7 +145,6 @@ const Weather: React.FC = () => {
             <span className="h-[25%]">{weatherData?.day_of_week}</span>
             <div className="flex justify-center items-center h-[25%]">
               <span>{weatherData?.weather}</span>
-              <img className="h-full" src={weatherData?.icon} />
             </div>
           </div>
         </div>
